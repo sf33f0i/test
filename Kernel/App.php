@@ -1,15 +1,15 @@
 <?php
 namespace App;
 use App\Routes\RoutApp;
+use App\Http\Request;
 
 class App {
 
     public static function run()
     {
-        $uri = $_SERVER['REQUEST_URI'];
-        $method = $_SERVER['REQUEST_METHOD'];
+        $request = Request::RequestSet();
         $rout = new RoutApp();
-        $rout->dispatch($uri, $method);
+        $rout->dispatch($request->getUri(), $request->getMethod());
     }
 
 }

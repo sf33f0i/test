@@ -32,7 +32,7 @@ class RoutApp {
 
     public function findRoute($uri, $method): Router| false
     {
-        if (!$this->routes[$method][$uri])
+        if (!isset($this->routes[$method][$uri]))
             return false;
         return $this->routes[$method][$uri];
     }
@@ -47,6 +47,6 @@ class RoutApp {
 
     public function getRoutes()
     {
-        return require_once APP_PATH.'/app/Routes/web.php';
+        return require_once APP_PATH.'/config/web.php';
     }
 }

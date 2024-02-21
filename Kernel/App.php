@@ -1,14 +1,16 @@
 <?php
-namespace App;
-use App\Routes\RoutApp;
-use App\Http\Request;
+namespace App\Kernel;
+use App\Kernel\Routes\RoutApp;
+use App\Kernel\Http\Request;
+use App\Kernel\View\View;
 
 class App {
 
     public static function run()
     {
         $request = Request::RequestSet();
-        $rout = new RoutApp();
+        $view = new View();
+        $rout = new RoutApp($view);
         $rout->dispatch($request->getUri(), $request->getMethod());
     }
 

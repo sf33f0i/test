@@ -1,15 +1,18 @@
 <?php
 
-namespace App\Routes;
+namespace App\Kernel\Routes;
+
+use App\Kernel\View\View;
 
 class RoutApp {
     private array $routes = [
         'GET' => [],
         'POST' => [],
     ];
-
-    public function __construct()
+    private View $view;
+    public function __construct(View $view)
     {
+        $this->view = $view;
         $this->fillRoute();
     }
 
@@ -25,6 +28,7 @@ class RoutApp {
         }else{
             [$controller, $action] = $route->getAction();
             $route = new $controller();
+            $route->setView($this->view);
             $route->$action();
 
         }

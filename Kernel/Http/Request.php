@@ -20,11 +20,20 @@ class Request {
 
     public function getUri()
     {
-        return $this->server['REQUEST_URI'];
+        return strtok($this->server['REQUEST_URI'],'?');
     }
 
     public function getMethod()
     {
         return $this->server['REQUEST_METHOD'];
+    }
+    public function all():array
+    {
+        return $this->request;
+    }
+
+    public function input($name, $default = null)
+    {
+        return $this->request[$name]??$default;
     }
 }

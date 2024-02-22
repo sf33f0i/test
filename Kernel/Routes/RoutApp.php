@@ -2,6 +2,7 @@
 
 namespace App\Kernel\Routes;
 
+use App\Kernel\Http\Request;
 use App\Kernel\View\View;
 
 class RoutApp {
@@ -10,9 +11,11 @@ class RoutApp {
         'POST' => [],
     ];
     private View $view;
-    public function __construct(View $view)
+    private Request $request;
+    public function __construct(View $view, Request $request)
     {
         $this->view = $view;
+        $this->request = $request;
         $this->fillRoute();
     }
 
@@ -27,9 +30,10 @@ class RoutApp {
             $route->getAction()();
         }else{
             [$controller, $action] = $route->getAction();
-            $route = new $controller();
-            $route->setView($this->view);
-            $route->$action();
+            $controller = new $controller();
+            $controller->setView($this->view);
+            $controller->setRequest($this->request);
+            $controller->$action();
 
         }
     }

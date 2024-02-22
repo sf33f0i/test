@@ -10,7 +10,7 @@ class App {
     {
         $request = Request::RequestSet();
         $view = new View();
-        $rout = new RoutApp($view);
+        $rout = new RoutApp($view, $request);
         $rout->dispatch($request->getUri(), $request->getMethod());
     }
 

@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var $page - the path to the page
+ * */
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -10,7 +15,7 @@
 </head>
 <body>
     <?php
-    require_once $path_page;
+    require_once $page;
     ?>
 </body>
 </html>

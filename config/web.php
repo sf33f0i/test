@@ -1,14 +1,13 @@
 <?php
 use App\Kernel\Routes\Router;
-use App\controllers\HomeController;
+use App\Controllers\HomeController;
+use App\Controllers\ProductController;
 return [
     Router::get('/', function (){
         echo 'Дом';
     }),
     Router::get('/home', [HomeController::class, 'index']),
-
-    Router::get('/home2', function (){
-        echo 'Это 2';
-    }),
+    Router::get('/admin/products', [ProductController::class, 'index']),
+    Router::post('/admin/products', [ProductController::class, 'store'])
 
 ];

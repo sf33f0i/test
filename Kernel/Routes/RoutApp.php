@@ -2,7 +2,9 @@
 
 namespace App\Kernel\Routes;
 
+use App\Kernel\Http\Redirect;
 use App\Kernel\Http\Request;
+use App\Kernel\Session\Session;
 use App\Kernel\View\View;
 
 class RoutApp {
@@ -12,10 +14,14 @@ class RoutApp {
     ];
     private View $view;
     private Request $request;
-    public function __construct(View $view, Request $request)
+    private Redirect $redirect;
+    private Session $session;
+    public function __construct(View $view, Request $request, Redirect $redirect, Session $session)
     {
         $this->view = $view;
         $this->request = $request;
+        $this->redirect = $redirect;
+        $this->session = $session;
         $this->fillRoute();
     }
 
@@ -33,6 +39,8 @@ class RoutApp {
             $controller = new $controller();
             $controller->setView($this->view);
             $controller->setRequest($this->request);
+            $controller->setRedirect($this->redirect);
+            $controller->setSession($this->session);
             $controller->$action();
 
         }

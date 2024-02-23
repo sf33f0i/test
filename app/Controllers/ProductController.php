@@ -12,6 +12,11 @@ class ProductController extends Controller
     }
 
     public function store(){
-        dd($this->request()->input('name'));
+        $validation = $this->request()->validate([
+            'name' => ['required', 'max:20', 'min:3', 'email'],
+            'name3' => ['required'],
+        ]);
+        $this->session()->set('sosa', 123);
+
     }
 }

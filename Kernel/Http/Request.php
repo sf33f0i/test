@@ -1,8 +1,10 @@
 <?php
 namespace App\Kernel\Http;
+use App\Kernel\Validator\Validator;
 
 class Request {
 
+    private Validator $validator;
 
     private function __construct(
     public readonly array $get,
@@ -35,5 +37,27 @@ class Request {
     public function input($name, $default = null)
     {
         return $this->request[$name]??$default;
+    }
+
+    public function validate($rules):bool
+    {
+        $data = [];
+        $FilterRules = [];
+        foreach ($rules as $key => $nameFiled){
+            if(array_key_exists($key , $this->request)) {
+                $data[$key] = $this->input($key);
+                $FilterRules[$key] = $nameFiled;
+            }
+        }
+        return $this->validator->validate($data, $FilterRules);
+    }
+
+    public function errors():array
+    {
+        return $this->validator->errors();
+    }
+    public function setValidator(Validator $validator):void
+    {
+        $this->validator = $validator;
     }
 }

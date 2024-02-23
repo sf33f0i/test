@@ -1,17 +1,13 @@
 <?php
 namespace App\Kernel;
-use App\Kernel\Routes\RoutApp;
-use App\Kernel\Http\Request;
-use App\Kernel\View\View;
+use App\Kernel\ServicesContainer\ServicesContainer;
 
 class App {
 
-    public static function run()
+    public static function run():void
     {
-        $request = Request::RequestSet();
-        $view = new View();
-        $rout = new RoutApp($view, $request);
-        $rout->dispatch($request->getUri(), $request->getMethod());
+        $container = new ServicesContainer();
+        $container->rout->dispatch($container->request->getUri(), $container->request->getMethod());
     }
 
 }

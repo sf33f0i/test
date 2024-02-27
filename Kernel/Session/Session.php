@@ -1,13 +1,17 @@
 <?php
 namespace App\Kernel\Session;
 
-class Session {
+class Session implements SessionInterface {
 
     public function __construct()
     {
         session_start();
     }
 
+    public function getAll()
+    {
+        return $_SESSION;
+    }
     public function get($key, $default=null)
     {
         return $_SESSION[$key]??$default;
@@ -33,6 +37,16 @@ class Session {
         $value = $this->get($key);
         $this->remove($key);
         return $value;
+    }
+
+    public function setError(string $message)
+    {
+        $this->set('errors' , [$message]);
+    }
+
+    public function setSuccess(string $message)
+    {
+        $this->set('success' , $message);
     }
 
     public function destroy():void

@@ -1,8 +1,9 @@
 <?php
 namespace App\Kernel\Http;
 use App\Kernel\Validator\Validator;
+use App\Kernel\Validator\ValidatorInterface;
 
-class Request {
+class Request implements RequestInterface {
 
     private Validator $validator;
 
@@ -39,7 +40,7 @@ class Request {
         return $this->request[$name]??$default;
     }
 
-    public function validate($rules):bool
+    public function validate($rules):bool|array
     {
         $data = [];
         $FilterRules = [];
@@ -56,7 +57,7 @@ class Request {
     {
         return $this->validator->errors();
     }
-    public function setValidator(Validator $validator):void
+    public function setValidator(ValidatorInterface $validator):void
     {
         $this->validator = $validator;
     }

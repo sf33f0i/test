@@ -11,12 +11,25 @@ class ProductController extends Controller
         $this->view('products', 'layout');
     }
 
-    public function store(){
+    public function store()
+    {
         $validation = $this->request()->validate([
-            'name' => ['required', 'max:20', 'min:3', 'email'],
-            'name3' => ['required'],
+            'name' => ['required'],
+            'price' => ['required'],
         ]);
-        $this->session()->set('sosa', 123);
 
+        if(!$validation){
+            $this->redirect()->back();
+            return false;
+        }
+        $insert = $this->db()->insert('products', $validation);
+        if(!$insert){
+            $this->session()->setError('Товар не был добавлен');
+            $this->redirect()->back();
+            return false;
+        }
+        $this->session()->setSuccess('Товар добавлен успешно');
+        $this->redirect()->back();
+        return true;
     }
 }

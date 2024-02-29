@@ -48,4 +48,33 @@ class Database implements DatabaseInterface {
         $result = $result->fetch(\PDO::FETCH_ASSOC);
         return $result;
     }
+
+    public function all($table)
+    {
+        $sql = "SELECT * FROM $table";
+        try {
+            $prepare = $this->pdo->prepare($sql);
+            $result = $prepare->execute();
+            return $prepare->fetchAll(2);
+        }catch (\PDOException $exception){
+            return false;
+        }
+    }
+    public function get(string $table, $conditions = [])
+    {
+        //name = 1
+        if(count($conditions) > 0){
+            $implode =  implode('AND', array_map(fn($fill) => "$fill =  :$fill", array_keys($conditions)));
+            $sql = "SELECT * FROM $table WHERE $implode";
+        }else{
+            $sql = "SELECT * FROM $table";
+        }
+        try {
+            $prepare = $this->pdo->prepare($sql);
+            $result = $prepare->execute($conditions);
+            return $prepare->fetchAll(2);
+        }catch (\PDOException $exception){
+            return false;
+        }
+    }
 }

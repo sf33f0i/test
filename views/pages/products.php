@@ -1,13 +1,17 @@
 <?php
 /**
  * @var \App\Kernel\Session\Session $session;
+ * @var \App\Models\Product $all
  **/
+
 ?>
-<form action="/admin/products" method="POST">
-    <input type="text" name="name" placeholder="Наименование товара">
-    <input type="text" name="price" placeholder="Наименование товара2">
-    <button type="submit">Добавить</button>
-</form>
-<?php $this->component('errors', compact(['session'])); ?>
-<?php $this->component('success', compact(['session'])); ?>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="container2">
+
+            </div>
+        </div>
+    </div>
+</div>
 

@@ -1,5 +1,6 @@
 <?php
 namespace App\Kernel\Http;
+use App\Kernel\Uploads\UploadsFile;
 use App\Kernel\Validator\Validator;
 use App\Kernel\Validator\ValidatorInterface;
 
@@ -33,6 +34,22 @@ class Request implements RequestInterface {
     public function all():array
     {
         return $this->request;
+    }
+
+    public function files($key)
+    {
+        if(!isset($this->files[$key]))
+        {
+            return false;
+        }
+        return new UploadsFile(
+            $this->files[$key]['name'],
+            $this->files[$key]['full_path'],
+            $this->files[$key]['type'],
+            $this->files[$key]['tmp_name'],
+            $this->files[$key]['error'],
+            $this->files[$key]['size'],
+        );
     }
 
     public function input($name, $default = null)

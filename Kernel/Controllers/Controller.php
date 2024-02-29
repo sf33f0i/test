@@ -21,9 +21,9 @@ abstract class Controller {
     private DatabaseInterface $database;
     private AuthInterface $auth;
 
-    public function view($page, $template=false):void
+    public function view($page, $template=false, $compact=[]):void
     {
-        $this->view->page($page , $template);
+        $this->view->page($page , $template, $compact);
     }
 
     public function setView(ViewInterface $view):void

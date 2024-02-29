@@ -18,18 +18,47 @@
 </head>
 <body>
     <header>
-        <?php if ($auth->check()):?>
-        <h1>
-            <?= $auth->user()->email() ?>
-        </h1>
-            <form action="/logout">
-                <button type="submit">
-                Logout
-                </button>
-
-            </form>
-        <?php endif; ?>
-
+        <div class="container-fluid">
+            <div class="row">
+                <div class="header">
+                    <div class="container">
+                        <div class="row d-flex justify-content-between">
+                            <div class="col-2">
+                                <div class="logo my-4 d-flex justify-content-center">
+                                   <h1>SAM</h1>
+                                </div>
+                            </div>
+                            <div class="col-6 d-flex align-items-center">
+                                <div class="nav w-100">
+                                    <ul class="d-flex justify-content-between align-items-center w-100">
+                                        <li>
+                                            <a href="http://sam/home" <?php if($_SERVER['REQUEST_URI']==='/home'):?>
+                                                style = "color: orange; text-shadow: orange 0 0 10px;" <?php endif; ?>>
+                                                Главная
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/admin/products" <?php if($_SERVER['REQUEST_URI']==='/admin/products'):?>
+                                                style = "color: orange; text-shadow: orange 0 0 10px;" <?php endif; ?>>
+                                                Игры</a>
+                                        </li>
+                                        <li>
+                                            <a href="/users"  <?php if($_SERVER['REQUEST_URI']==='/users'):?>
+                                                style = "color: orange; text-shadow: orange 0 0 10px;" <?php endif; ?>>
+                                                Пользователи</a>
+                                        </li>
+                                        <li>
+                                            <a href="/genres"  <?php if($_SERVER['REQUEST_URI']==='/genres'):?>
+                                                style = "color: orange; text-shadow: orange 0 0 10px;" <?php endif; ?>>
+                                                Жанры</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </header>
     <?php
     require_once $page;

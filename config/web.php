@@ -11,7 +11,7 @@ return [
         echo 'Дом';
     }),
     Router::get('/home', [HomeController::class, 'index']),
-    Router::get('/admin/products', [ProductController::class, 'index'], [AuthMiddleware::class]),
+    Router::get('/admin/products', [ProductController::class, 'index']),
     Router::post('/admin/products', [ProductController::class, 'store'], [AuthMiddleware::class]),
     Router::get('/register' , [RegisterController::class, 'index'], [GuestMiddleware::class]),
     Router::post('/register', [RegisterController::class, 'registration'], [GuestMiddleware::class]),

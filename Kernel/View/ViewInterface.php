@@ -3,6 +3,6 @@ namespace App\Kernel\View;
 
 interface ViewInterface {
 
-    public function page(string $name, $template = false);
+    public function page(string $name, $compact=[]);
 
 }

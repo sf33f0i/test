@@ -3,16 +3,20 @@ namespace App\Controllers;
 
 use App\Kernel\Controllers\Controller;
 use App\Kernel\Http\Request;
+use App\Models\Product;
 
 class ProductController extends Controller
 {
     public function index()
     {
-        $this->view('products', 'layout');
+        $all = Product::all();
+        $this->view('layout.products', compact('all'));
     }
 
-    public function store()
+    public function store():bool
     {
+        $file = $this->request()->files('image');
+        $file->move('avatars', 'test.jpg');
         $validation = $this->request()->validate([
             'name' => ['required'],
             'price' => ['required'],
@@ -22,7 +26,7 @@ class ProductController extends Controller
             $this->redirect()->back();
             return false;
         }
-        $insert = $this->db()->insert('products', $validation);
+        $insert = Product::create($validation);
         if(!$insert){
             $this->session()->setError('Товар не был добавлен');
             $this->redirect()->back();
